@@ -11,6 +11,8 @@ class NewGetBusineessErrorState extends NewsStates
   NewGetBusineessErrorState(this.error);
 }
 
+class NewSelectBusineessItemState extends NewsStates{}
+class NewSetDesktopState extends NewsStates{}
 
 
 class NewsGetSportsLoadingState extends NewsStates{}
@@ -20,7 +22,6 @@ class NewGetSportsErrorState extends NewsStates
   final String error;
   NewGetSportsErrorState(this.error);
 }
-
 
 
 class NewsGetScienceLoadingState extends NewsStates{}

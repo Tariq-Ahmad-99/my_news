@@ -55,6 +55,15 @@ class NewsCubit extends Cubit<NewsStates>
   }
 
   List<dynamic> business = [];
+  int selectedBusinessItem = 0;
+  bool isDesktop = false;
+
+  void setDesktop(bool value)
+  {
+    isDesktop = value;
+    emit(NewSetDesktopState());
+  }
+
   void getBusiness()
   {
     emit(NewsGetBusineessLoadingState());
@@ -68,6 +77,10 @@ class NewsCubit extends Cubit<NewsStates>
     ).then((value)
     {
       business = value.data['articles'];
+      // businessSelectedItem.forEach((elemet)
+      // {
+      //   businessSelectedItem.add(false);
+      // });
       emit(NewGetBusineessSuccessState());
     }).catchError((error){
       if (kDebugMode) {
@@ -75,6 +88,11 @@ class NewsCubit extends Cubit<NewsStates>
       }
       emit(NewGetBusineessErrorState(error.toString()));
     });
+  }
+
+  void selectBusinessItem(index){
+    selectedBusinessItem = index;
+    emit(NewSelectBusineessItemState());
   }
 
   List<dynamic> sports = [];

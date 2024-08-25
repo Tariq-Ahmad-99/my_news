@@ -4,11 +4,12 @@ import 'package:flutter/material.dart';
 import '../../modules/wep_view/wep_view_screen.dart';
 import '../cubit/cubit.dart';
 
-Widget buildArticleItem(article, context, {bool isDark = false}) {
-
-  return article != null ? InkWell(
+Widget buildArticleItem(article, context,index ,{bool isDark = false})=>Container(
+  color: NewsCubit.get(context).selectedBusinessItem == index && NewsCubit.get(context).isDesktop ? Colors.grey[200] : null,
+  child: InkWell(
     onTap: () {
-      navigateTo(context, WebViewScreen(article['url']));
+      // navigateTo(context, WebViewScreen(article['url']));
+      NewsCubit.get(context).selectBusinessItem(index);
     },
     child: Padding(
       padding: const EdgeInsets.all(20.0),
@@ -60,8 +61,8 @@ Widget buildArticleItem(article, context, {bool isDark = false}) {
         ],
       ),
     ),
-  ): Container();
-}
+  ),
+);
 
 void navigateTo(context, widget) => Navigator.push(
   context,
@@ -88,7 +89,9 @@ Widget articleBuilder(list, context, {isSearch = false}) => ConditionalBuilder(
   builder: (context) => ListView.separated(
     physics: const BouncingScrollPhysics(),
     itemBuilder: (context, index) => buildArticleItem(
-      list[index], context,
+      list[index],
+      context,
+      index,
       isDark: NewsCubit.get(context).isDark,
     ),
     separatorBuilder: (context, index) => myDivider(),
