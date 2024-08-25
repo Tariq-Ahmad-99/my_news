@@ -60,8 +60,10 @@ class NewsCubit extends Cubit<NewsStates>
 
   void setDesktop(bool value)
   {
-    isDesktop = value;
-    emit(NewSetDesktopState());
+    if (isDesktop != value) {  // Check if the value is different before emitting
+      isDesktop = value;
+      emit(NewSetDesktopState());
+    }
   }
 
   void getBusiness()
@@ -77,10 +79,7 @@ class NewsCubit extends Cubit<NewsStates>
     ).then((value)
     {
       business = value.data['articles'];
-      // businessSelectedItem.forEach((elemet)
-      // {
-      //   businessSelectedItem.add(false);
-      // });
+
       emit(NewGetBusineessSuccessState());
     }).catchError((error){
       if (kDebugMode) {
